@@ -7,7 +7,7 @@ def display_score(score):
     print(f"[Score: {score}] ", end="")
 
 def pause(seconds=1):
-    # Pause for seconds
+    # Pause for dramatic effect
     time.sleep(seconds)
 
 def fight_monster(score):
@@ -17,65 +17,171 @@ def fight_monster(score):
     if fight_choice == "fight":
         outcome = random.choice(["win", "lose"])
         if outcome == "win":
-            print("You defeated the monster!")
-            score += 20
+            print("You bravely slay the monster!")
+            score += 10
         else:
-            print("The monster defeated you!")
+            print("The monster overpowered you!")
             score -= 10
     else:
-        print("You ran away.")
+        print("You ran away and lost honor.")
+        score -= 10
+    return score
+
+def escape_dragon(score):
+    # Escape from dragon
+    print("You see two escape paths: the forest or the jungle.")
+    display_score(score)
+    path = input("Where do you run? (forest/jungle) ").lower()
+    if path == "forest":
+        print("You trip over a root, but survive.")
         score -= 5
+    elif path == "jungle":
+        print("You hide in thick vines and the dragon passes.")
+        score += 10
+    else:
+        print("You froze in fear. The dragon scorched your arm.")
+        score -= 10
+    return score
+
+def explore_forest(score):
+    # Forest event
+    print("\nYou find a fork in the road.")
+    print("To the left: an eerie cave. To the right: a glowing waterfall.")
+    display_score(score)
+    choice = input("Which way do you go? (cave/waterfall) ").lower()
+    if choice == "cave":
+        print("A goblin attacks you in the dark.")
+        score -= 10
+    elif choice == "waterfall":
+        print("You find a healing herb behind the falls.")
+        score += 10
+    else:
+        print("You wander into thorns and get scratched.")
+        score -= 10
+    return score
+
+def meet_traveler(score):
+    # Meet traveler
+    print("\nA hooded traveler approaches you.")
+    print("He offers a map or a sword.")
+    display_score(score)
+    gift = input("What do you take? (map/sword) ").lower()
+    if gift == "map":
+        print("The map reveals a secret route.")
+        score += 10
+    elif gift == "sword":
+        print("The sword is cursed! You feel weak.")
+        score -= 10
+    else:
+        print("You reject both and offend the traveler.")
+        score -= 10
+    return score
+
+def ancient_ruins(score):
+    # Ruins scene
+    print("\nYou discover ancient ruins with inscriptions.")
+    display_score(score)
+    choice = input("Do you read the inscriptions or move on? (read/move) ").lower()
+    if choice == "read":
+        print("You unlock ancient wisdom. You gain clarity.")
+        score += 10
+    elif choice == "move":
+        print("You miss out on powerful knowledge.")
+        score -= 10
+    else:
+        print("Your indecision awakens a spirit. It drains your energy.")
+        score -= 10
     return score
 
 def story(score=0):
-    # Start the story
-    print("\nYou are in a green zone full of trees and flowers. You are a mid-age male.")
-    print("The sun is shining and the birds are singing.")
+    print("\n🌳 You are in a vast forest, sun shining, birds chirping.")
     pause(2)
-    print("You are walking in the forest and you see a big tree.")
-    print("You go to the tree and you see a door.")
-    print("You open the door and find a woman saying:")
-    print("'I heard you're the new warrior of the forest.'")
+    print("You approach a mystical tree with a door.")
+    pause(1)
+    print("Inside stands a mysterious woman:\n'I heard you're the new warrior.'")
     pause(2)
-    print("'The forbidden creature is going to destroy the forest. You should stop him.'")
+    print("'The forbidden creature will destroy us all unless you stop him.'")
 
     display_score(score)
     accept = input("Do you accept the mission? (yes/no) ").lower()
     if accept == "yes":
-        print("You are now a warrior.")
+        print("You accept and gain courage.")
         score += 10
     else:
-        print("You continue by force.")
-        score -= 5
-
-    pause(2)
-    print("\nYou see a big tree again.")
-    print("You go to the tree and you see a door.")
-    display_score(score)
-    open_door = input("Do you want to open the door? (yes/no) ").lower()
-    if open_door == "yes":
-        print("You open the door and see a big monster.")
-        pause(2)
-        score = fight_monster(score)
-    else:
-        print("The Dragon attacked you. (You Lost)")
+        print("You are chosen anyway. Destiny forces you.")
         score -= 10
 
-    if score < 0:
-        # Game over
-        print("Your score is too low... Game Over!")
+    # Monster path
+    pause(2)
+    print("\nAfter a while, you open another glowing door...")
+    print("A massive dragon roars from inside!")
+    display_score(score)
+    open_door = input("Do you want to enter or run? (enter/run) ").lower()
+    if open_door == "enter":
+        score = fight_monster(score)
+    else:
+        print("The dragon bursts through the door and chases you!")
+        score -= 10
+        score = escape_dragon(score)
+
+    # Continue journey
+    pause(2)
+    score = explore_forest(score)
+    pause(2)
+    score = meet_traveler(score)
+    pause(2)
+    score = ancient_ruins(score)
+
+    # Final scene
+    print("\nYou approach the Forbidden Creature's lair.")
+    print("You feel the weight of your journey.")
+    display_score(score)
+    final_choice = input("Do you enter the lair or camp for the night? (enter/camp) ").lower()
+    if final_choice == "enter":
+        print("You face the beast in an epic battle...")
+        outcome = random.choice(["victory", "defeat"])
+        if outcome == "victory":
+            print("You have saved the forest! 🌟")
+            score += 20
+        else:
+            print("You fought bravely but fell. The forest mourns.")
+            score -= 20
+    else:
+        print("The beast attacked your camp at night. You were unprepared!")
+        score -= 10
+        pause(2)
+        print("\nYou wake up to flames and roaring nearby!")
+        print("You must escape quickly! What do you do?")
+        display_score(score)
+        escape_option = input("Hide in bushes, climb a tree, or panic fight? (hide/climb/fight) ").lower()
+        if escape_option == "hide":
+            print("You hide under the bush. The dragon flies past. You survive!")
+            score -= 5
+        elif escape_option == "climb":
+            print("You climb a tree. The dragon sees you but ignores you. You're lucky!")
+            score -= 5
+        elif escape_option == "fight":
+            print("You swing your weapon blindly. You wound the beast, but take damage too.")
+            score -= 10
+        else:
+            print("You freeze and take heavy damage.")
+            score -= 15
+
+
+    # Score check
+    if score < -30:
+        print("Your score is too low... You have failed the forest.")
         sys.exit()
 
     playagain(score)
 
 def playagain(score):
-    # Ask to play again
     display_score(score)
-    play_again = input("Do you want to play again? (yes/no) ").lower()
-    if play_again == "yes":
+    again = input("Do you want to continue your journey? (yes/no) ").lower()
+    if again == "yes":
         story(score)
     else:
-        print(f"Thanks for playing! Your final score is: {score}")
+        print(f"Thanks for playing! Final Score: {score}")
         sys.exit()
 
 # Start the story
