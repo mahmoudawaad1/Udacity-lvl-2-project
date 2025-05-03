@@ -107,7 +107,7 @@ def story(score=0):
         print("You accept and gain courage.")
         score += 10
     else:
-        print("Mate why do you refuse? :/ you will contrinue by force anyway 😂 and I will take 10 points from you too")
+        print("Mate why do you refuse? :/ you will continue by force anyway 😂 and I will take 10 points from you too")
         score -= 10
 
     # Monster path
