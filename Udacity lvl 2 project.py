@@ -187,5 +187,9 @@ def playagain(score):
         print(f"Thanks for playing! Final Score: {score}")
         sys.exit()
 
-# Start the story
-story()
+def main():
+    # Start the story
+    story()
+
+if __name__ == "__main__":
+    main()
