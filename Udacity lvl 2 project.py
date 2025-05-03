@@ -2,6 +2,9 @@ import sys
 import random
 import time
 
+weather_choice = ["sunny", "rainy", "stormy"]
+weather = random.choices(weather_choice)
+
 def display_score(score):
     # Display score
     print(f"[Score: {score}] ", end="")
@@ -94,7 +97,7 @@ def ancient_ruins(score):
     return score
 
 def story(score=0):
-    print("\n🌳 You are in a vast forest, sun shining, birds chirping.")
+    print(f"\n🌳 You are in a vast forest, {weather} weather")
     pause(2)
     print("You approach a mystical tree with a door.")
     pause(1)
