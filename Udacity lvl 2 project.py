@@ -2,27 +2,24 @@ import sys
 import random
 import time
 
+# Random weather
 weather_choice = ["sunny", "rainy", "stormy"]
-weather = random.choices(weather_choice)
+weather = random.choice(weather_choice)
 
 def display_score(score):
-    # Display score
     print(f"[Score: {score}] ", end="")
 
 def pause(seconds=1):
-    # Pause for dramatic effect
     time.sleep(seconds)
 
 def get_valid_input(prompt, valid_options):
-    # Helper function to validate user input
     while True:
-        user_input = input(prompt).lower()
+        user_input = input(prompt).lower().strip()
         if user_input in valid_options:
             return user_input
-        print(f"Invalid input. Please choose from {', '.join(valid_options)}.")
+        print(f"Invalid input. Please choose from: {', '.join(valid_options)}.")
 
 def fight_monster(score):
-    # Fight monster
     display_score(score)
     fight_choice = get_valid_input("Do you want to fight the monster or run away? (fight/run) ", ["fight", "run"])
     if fight_choice == "fight":
@@ -39,7 +36,6 @@ def fight_monster(score):
     return score
 
 def escape_dragon(score):
-    # Escape from dragon
     print("You see two escape paths: the forest or the jungle.")
     display_score(score)
     path = get_valid_input("Where do you run? (forest/jungle) ", ["forest", "jungle"])
@@ -52,7 +48,6 @@ def escape_dragon(score):
     return score
 
 def explore_forest(score):
-    # Forest event
     print("\nYou find a fork in the road.")
     print("To the left: an eerie cave. To the right: a glowing waterfall.")
     display_score(score)
@@ -66,7 +61,6 @@ def explore_forest(score):
     return score
 
 def meet_traveler(score):
-    # Meet traveler
     print("\nA hooded traveler approaches you.")
     print("He offers a map or a sword.")
     display_score(score)
@@ -80,7 +74,6 @@ def meet_traveler(score):
     return score
 
 def ancient_ruins(score):
-    # Ruins scene
     print("\nYou discover ancient ruins with inscriptions.")
     display_score(score)
     choice = get_valid_input("Do you read the inscriptions or move on? (read/move) ", ["read", "move"])
@@ -93,7 +86,7 @@ def ancient_ruins(score):
     return score
 
 def story(score=0):
-    print(f"\n🌳 You are in a vast forest, {weather} weather")
+    print(f"\n🌳 You are in a vast forest, {weather} weather.")
     pause(2)
     print("You approach a mystical tree with a door.")
     pause(1)
@@ -107,10 +100,9 @@ def story(score=0):
         print("You accept and gain courage.")
         score += 10
     else:
-        print("Mate why do you refuse? :/ you will continue by force anyway 😂 and I will take 10 points from you too")
+        print("Mate why do you refuse? :/ you will continue by force anyway and I will take 10 points from you too.")
         score -= 10
 
-    # Monster path
     pause(2)
     print("\nAfter a while, you open another glowing door...")
     print("A massive dragon roars from inside!")
@@ -123,7 +115,6 @@ def story(score=0):
         score -= 10
         score = escape_dragon(score)
 
-    # Continue journey
     pause(2)
     score = explore_forest(score)
     pause(2)
@@ -131,7 +122,6 @@ def story(score=0):
     pause(2)
     score = ancient_ruins(score)
 
-    # Final scene
     print("\nYou approach the Forbidden Creature's lair.")
     print("You feel the weight of your journey.")
     display_score(score)
@@ -163,7 +153,6 @@ def story(score=0):
             print("You swing your weapon blindly. You wound the beast, but take damage too.")
             score -= 10
 
-    # Score check
     if score < -30:
         print("Your score is too low... You have failed the forest.")
         sys.exit()
@@ -179,7 +168,6 @@ def playagain(score):
         print(f"Thanks for playing! Final Score: {score}")
         sys.exit()
 
-#Main function
 def main():
     story()
 
